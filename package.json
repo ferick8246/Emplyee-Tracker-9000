@@ -1,0 +1,23 @@
+{
+  "name": "emplyee-tracker-9000",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ferick8246/Emplyee-Tracker-9000.git"
+  },
+  "author": "Erick Flores",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ferick8246/Emplyee-Tracker-9000/issues"
+  },
+  "homepage": "https://github.com/ferick8246/Emplyee-Tracker-9000#readme",
+  "dependencies": {
+    "inquirer": "^8.0.0",
+    "mysql": "^2.18.1"
+  }
+}
