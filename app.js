@@ -7,8 +7,8 @@ const questions = require("./assets/js/questions");
 init();
 
 async function init() {
-  const { action } = await inquirer.prompt(questions);
-  switch (action) {
+const { action } = await inquirer.prompt(questions);
+    switch (action) {
     case "Edit Department":
      editDepartments();
       break;
