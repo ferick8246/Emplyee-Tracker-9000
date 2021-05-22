@@ -11,3 +11,6 @@ const questions = [
             "Exit",
         ]
     }];
+
+    module.exports = questions
+
