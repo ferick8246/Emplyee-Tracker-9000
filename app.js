@@ -203,3 +203,67 @@ async function editRole() {
     init();
   }
 };
+//add role function
+async function addRole() {
+  const departments = await connection.query(
+    "SELECT dept, id FROM department",
+  )
+  console.log(departments);
+  const { dept, title, salary } = await inquirer.prompt([
+    {
+      name: "dept",
+      type: "list",
+      message: "Which departments will this role be associated with?",
+      choices: departments.map((row) => ({ name: row.dept, value: row.id })),
+    },
+    {
+      name: "title",
+      type: "input",
+      message: "What role are you creating?",
+    },
+    {
+      name: "salary",
+      type: "number",
+      message: "What is the salary for this role?",
+    },
+  ])
+  connection.query(`INSERT INTO role (title, salary, dept_id) VALUES ('${title}', ${salary}, ${dept})`,
+
+    function (err, res) {
+      if (err) throw err;
+      console.log(res.affectedRows + " Role Added\n");
+      init();
+    });
+};
+
+//Edit role
+async function updateRole() {
+  const employees = await connection.query(
+    "SELECT first_name AS firstName, last_name AS lastName, id FROM employee")
+  const roles = await connection.query(
+    "SELECT id, title, salary FROM role",
+  )
+  const { employee, role } = await inquirer.prompt([
+    {
+      name: "employee",
+      type: "list",
+      message: "Select an employee to update:",
+      choices: employees.map((employee) => ({
+        name: employee.firstName + " " + employee.lastName, value: employee.id
+      })),
+    },
+    {
+      name: "role",
+      type: "list",
+      message: "Select the new role:",
+      choices: roles.map((row) => ({ name: row.title, value: row.id })),
+    },
+  ])
+  connection.query(`UPDATE employee SET role_id = ${role} WHERE  id = ${employee}`,
+
+    function (err, res) {
+      if (err) throw err;
+      console.log(res.affectedRows + " Role Added\n");
+      init();
+    });
+};
