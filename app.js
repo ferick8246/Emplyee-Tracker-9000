@@ -93,3 +93,19 @@ async function remDepartment() {
     }
   );
 }
+//Edit Employee function 
+async function editEmployee() {
+  const { employee } = await inquirer.prompt({
+    name: "employee",
+    type: "list",
+    message: "What would you like to do?",
+    choices: ["Add Employee", "Remove Employee", "Exit"],
+  });
+  if (employee === "Add Employee") {
+    addEmployee();
+  } else if (employee === "Remove Employee") {
+    removeEmployee();
+  } else {
+    init();
+  }
+}
