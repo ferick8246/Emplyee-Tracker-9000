@@ -70,7 +70,7 @@ async function addDepartment() {
       init();
     });
 }
-//remove department function
+//delete department function
 async function remDepartment() {
   connection.query(
     "SELECT dept AS departments FROM department",
