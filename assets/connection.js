@@ -10,8 +10,5 @@ const connection = mysql.createConnection({
 });
 
 connection.connect();
-
-// Setting up connection.query for promises instead of callbacks allowing to useasync/await syntax
 connection.query = util.promisify(connection.query);
-
 module.exports = connection;

@@ -29,14 +29,8 @@ const { action } = await inquirer.prompt(questions);
 // Edit Department
 async function editDepartments() {
   const { department } = await inquirer.prompt({
-    name: "department",
-    type: "list",
-    message: "Choose one of the following:",
-    choices: [
-      "Add Department",
-      "Remove Department",
-      "Exit"
-    ]
+    name: "department", type: "list", message: "Choose one of the following:",
+    choices: ["Add Department","Remove Department","Exit"]
   })
   if (department === "Add Department") {
     addDepartment();
@@ -51,9 +45,7 @@ async function editDepartments() {
 //Added Department Function
 async function addDepartment() {
   const departmentName = await inquirer.prompt({
-    name: "department",
-    type: "input",
-    message: "What department are you adding",
+    name: "department", type: "input", message: "What department are you adding",
   });
 
   const data = departmentName.department
@@ -76,10 +68,7 @@ async function remDepartment() {
     "SELECT dept AS departments FROM department",
     async function (err, departments) {
       const data = await inquirer.prompt([
-        {
-          name: "departments",
-          message: "What department would you like to remove?",
-          type: "list",
+        {name: "departments", message: "What department would you like to remove?",type: "list",
           choices: departments.map((department) => ({
             name: department.departments,
           })),
@@ -95,11 +84,7 @@ async function remDepartment() {
 }
 //Edit Employee function 
 async function editEmployee() {
-  const { employee } = await inquirer.prompt({
-    name: "employee",
-    type: "list",
-    message: "What would you like to do?",
-    choices: ["Add Employee", "Remove Employee", "Exit"],
+  const { employee } = await inquirer.prompt({name: "employee",type: "list",message: "What would you like to do?",choices: ["Add Employee", "Remove Employee", "Exit"],
   });
   if (employee === "Add Employee") {
     addEmployee();
@@ -112,31 +97,11 @@ async function editEmployee() {
 // Add employee function
 async function addEmployee() {
   const add = await inquirer.prompt([
-    {
-      name: "firstName",
-      type: "input",
-      message: "What is the employee's first name?",
-    },
-    {
-      name: "lastName",
-      type: "input",
-      message: "What is the employee's last name?",
-    },
-    {
-      name: "roleID",
-      type: "list",
-      message: "What is the employee's role?",
-      choices: [
-        "Intern",
-        "IT",
-        "Engineer",
-      ]
-    },
-    {
-      name: "managerID",
-      type: "confirm",
-      message: "Is the employee a manager?",
-    },
+    {name: "firstName",type: "input",message: "What is the employee's first name?",},
+    {name: "lastName",type: "input",message: "What is the employee's last name?",},
+    {name: "roleID",type: "list",message: "What is the employee's role?",
+      choices: ["Intern","IT","Engineer",]},
+    {name: "managerID",type: "confirm",message: "Is the employee a manager?",},
   ]);
   switch (add.managerID) {
     case true:
@@ -148,12 +113,7 @@ async function addEmployee() {
   }
   const query = await connection.query(
     "INSERT INTO employee SET ?",
-    {
-      first_name: add.firstName,
-      last_name: add.lastName,
-      role_id: add.roleID,
-      manager_id: add.managerID,
-    },
+    {first_name: add.firstName,last_name: add.lastName,role_id: add.roleID,manager_id: add.managerID,},
 
     function (err, res) {
       if (err) throw err;
@@ -167,11 +127,7 @@ async function removeEmployee() {
     "SELECT first_name AS firstName, last_name AS lastName FROM employee",
     async function (err, employees) {
       const data = await inquirer.prompt([
-        {
-          name: "employees",
-          message: "Which employee would you like to remove?",
-          type: "list",
-          choices: employees.map((employee) => ({
+        {name: "employees",message: "Which employee would you like to remove?",type: "list",choices: employees.map((employee) => ({
             name: employee.firstName + " " + employee.lastName,
           })),
         },
@@ -189,12 +145,8 @@ async function removeEmployee() {
 }
 //Edit role
 async function editRole() {
-  const { role } = await inquirer.prompt({
-    name: "role",
-    type: "list",
-    message: "What would you like to do?",
-    choices: ["Add Role", "Update Role", "Exit"],
-  });
+  const { role } = await inquirer.prompt({name: "role",type: "list",message: "What would you like to do?",
+    choices: ["Add Role", "Update Role", "Exit"],});
   if (role === "Add Role") {
     addRole();
   } else if (role === "Update Role") {
@@ -210,22 +162,10 @@ async function addRole() {
   )
   console.table(departments);
   const { dept, title, salary } = await inquirer.prompt([
-    {
-      name: "dept",
-      type: "list",
-      message: "Which departments will this role be associated with?",
-      choices: departments.map((row) => ({ name: row.dept, value: row.id })),
-    },
-    {
-      name: "title",
-      type: "input",
-      message: "What role are you creating?",
-    },
-    {
-      name: "salary",
-      type: "number",
-      message: "What is the salary for this role?",
-    },
+    {name: "dept",type: "list",message: "Which departments will this role be associated with?",
+      choices: departments.map((row) => ({ name: row.dept, value: row.id })),},
+    {name: "title",type: "input",message: "What role are you creating?",},
+    {name: "salary",type: "number",message: "What is the salary for this role?",},
   ])
   connection.query(`INSERT INTO role (title, salary, dept_id) VALUES ('${title}', ${salary}, ${dept})`,
 
@@ -244,18 +184,12 @@ async function updateRole() {
     "SELECT id, title, salary FROM role",
   )
   const { employee, role } = await inquirer.prompt([
-    {
-      name: "employee",
-      type: "list",
-      message: "Select an employee to update:",
+    {name: "employee",type: "list",message: "Select an employee to update:",
       choices: employees.map((employee) => ({
         name: employee.firstName + " " + employee.lastName, value: employee.id
       })),
     },
-    {
-      name: "role",
-      type: "list",
-      message: "Select the new role:",
+    {name: "role",type: "list",message: "Select the new role:",
       choices: roles.map((row) => ({ name: row.title, value: row.id })),
     },
   ])
@@ -269,23 +203,18 @@ async function updateRole() {
 };
 // View function
 async function viewInfo() {
-  const { letsGo } = await inquirer.prompt({
-    name: 'letsGo',
-    type: 'list',
-    message: 'Select a topic',
-    choices: ['Employees', 'Departments', 'Roles']
-  });
+  const {aboutTime} = await inquirer.prompt({name: 'aboutTime ',type: 'list',message: 'Select a topic',choices: ['Employees', 'Departments', 'Roles']});
   let query;
-  if (letsGo === 'Employees') {
+  if (aboutTime === 'Employees') {
     query = `SELECT  employee.first_name, employee.last_name,
       role.title, role.salary, department.dept AS department
       FROM ((employee
       INNER JOIN role ON employee.role_id = role.id)
       INNER JOIN department ON role.dept_id = department.id)
       ORDER BY department`;
-  } else if (letsGo === 'Departments') {
+  } else if (aboutTime  === 'Departments') {
     query = `SELECT dept FROM department`;
-  } else if (letsGo === 'Roles') {
+  } else if (aboutTime  === 'Roles') {
     query = `SELECT role.title, role.dept_id AS id, department.dept AS department FROM role 
     INNER JOIN department ON role.dept_id = department.id ORDER BY title ASC`;
   }
