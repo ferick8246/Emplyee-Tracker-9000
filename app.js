@@ -161,4 +161,29 @@ async function addEmployee() {
       init();
     });
 }
-
+//Employee remove function
+async function removeEmployee() {
+  connection.query(
+    "SELECT first_name AS firstName, last_name AS lastName FROM employee",
+    async function (err, employees) {
+      const data = await inquirer.prompt([
+        {
+          name: "employees",
+          message: "Which employee would you like to remove?",
+          type: "list",
+          choices: employees.map((employee) => ({
+            name: employee.firstName + " " + employee.lastName,
+          })),
+        },
+      ]);
+      console.log(data);
+      const firstAndLast = data.employees.split(" ");
+      console.log(firstAndLast[1]);
+      connection.query(
+        "DELETE FROM employee WHERE first_name = ? AND last_name = ?",
+        [firstAndLast[0], firstAndLast[1]]
+      );
+      init();
+    }
+  );
+}
