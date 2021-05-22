@@ -12,3 +12,10 @@ With this app I architect and build a solution for managing a company's employee
 Command Line it will allow for multiple functions to organize a multi-structure employee database. MySQL schema and seed is included in the files.This app
 will also allow you to remove and and add deparments and employees if you wish to do so.
 
+## Install
+
+You will need to install fallowing 
+* MySQL
+* Inquirer 
+* Util
+
