@@ -187,3 +187,19 @@ async function removeEmployee() {
     }
   );
 }
+//Edit role
+async function editRole() {
+  const { role } = await inquirer.prompt({
+    name: "role",
+    type: "list",
+    message: "What would you like to do?",
+    choices: ["Add Role", "Update Role", "Exit"],
+  });
+  if (role === "Add Role") {
+    addRole();
+  } else if (role === "Update Role") {
+    updateRole();
+  } else {
+    init();
+  }
+};
