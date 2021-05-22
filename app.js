@@ -1,6 +1,6 @@
 const connection = require("./assets/connection.js");
 const inquirer = require("inquirer");
-const questions = require("./assets/question.js");
+const questions = require("./assets/question");
 
 init();
 
@@ -208,7 +208,7 @@ async function addRole() {
   const departments = await connection.query(
     "SELECT dept, id FROM department",
   )
-  console.log(departments);
+  console.table(departments);
   const { dept, title, salary } = await inquirer.prompt([
     {
       name: "dept",
@@ -268,7 +268,6 @@ async function updateRole() {
     });
 };
 // View function
-
 async function viewInfo() {
   const { letsGo } = await inquirer.prompt({
     name: 'letsGo',
