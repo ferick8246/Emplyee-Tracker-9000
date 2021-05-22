@@ -48,3 +48,25 @@ async function editDepartments() {
     init();
   }
 };
+//Added Department Function
+async function addDepartment() {
+  const departmentName = await inquirer.prompt({
+    name: "department",
+    type: "input",
+    message: "What department are you adding",
+  });
+
+  const data = departmentName.department
+
+  const query = await connection.query(
+    "INSERT INTO department SET ?",
+    {
+      dept: data,
+    },
+
+    function (err, res) {
+      if (err) throw err;
+      console.log(res.affectedRows + " Department Added\n");
+      init();
+    });
+}
