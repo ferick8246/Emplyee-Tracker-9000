@@ -109,3 +109,56 @@ async function editEmployee() {
     init();
   }
 }
+// Add employee function
+async function addEmployee() {
+  const add = await inquirer.prompt([
+    {
+      name: "firstName",
+      type: "input",
+      message: "What is the employee's first name?",
+    },
+    {
+      name: "lastName",
+      type: "input",
+      message: "What is the employee's last name?",
+    },
+    {
+      name: "roleID",
+      type: "list",
+      message: "What is the employee's role?",
+      choices: [
+        "Intern",
+        "IT",
+        "Engineer",
+      ]
+    },
+    {
+      name: "managerID",
+      type: "confirm",
+      message: "Is the employee a manager?",
+    },
+  ]);
+  switch (add.managerID) {
+    case true:
+      add.managerID = 1;
+      break;
+    case false:
+      add.managerID = null;
+      break;
+  }
+  const query = await connection.query(
+    "INSERT INTO employee SET ?",
+    {
+      first_name: add.firstName,
+      last_name: add.lastName,
+      role_id: add.roleID,
+      manager_id: add.managerID,
+    },
+
+    function (err, res) {
+      if (err) throw err;
+      console.log(res.affectedRows + " Employee Added\n");
+      init();
+    });
+}
+
