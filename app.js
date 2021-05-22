@@ -70,3 +70,26 @@ async function addDepartment() {
       init();
     });
 }
+//remove department function
+async function remDepartment() {
+  connection.query(
+    "SELECT dept AS departments FROM department",
+    async function (err, departments) {
+      const data = await inquirer.prompt([
+        {
+          name: "departments",
+          message: "What department would you like to remove?",
+          type: "list",
+          choices: departments.map((department) => ({
+            name: department.departments,
+          })),
+        },
+      ]);
+      connection.query(
+        "DELETE FROM department WHERE ?", {
+        dept: data.departments,
+      }),
+        init();
+    }
+  );
+}
