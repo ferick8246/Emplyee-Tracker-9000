@@ -32,4 +32,8 @@ For more, check me out my [GitHub](https://github.com/ferick8246)!
 
 If you have any questions regarding this project you can email me here at ferick8246@gmail.com 
 
+## Video 
+
+Check Out how it works [Click Here](https://youtu.be/TKHlzYVYRPw)
+
 
